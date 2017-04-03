@@ -30,7 +30,7 @@
 		SELECT 
 			username,
 			score,
-			(SELECT auth_time FROM authlog WHERE username=u.username ORDER BY auth_time ASC LIMIT 1) AS last_solved
+			(SELECT auth_time FROM authlog WHERE username=u.username ORDER BY auth_time DESC LIMIT 1) AS last_solved
 		FROM user AS u 
 		WHERE score
 		ORDER BY
@@ -45,7 +45,7 @@
 ?>
 								<tr<?php if($user_info[$i]['username'] === $_SESSION['username']) echo ' class="info"'; ?>>
 									<td scope="row"><?php echo $i+1; ?></td>
-									<td><a href="/profile/<?php echo strtolower(secure_escape($user_info[$i]['username'])); ?>" target="_blank"><?php echo secure_escape($user_info[$i]['username']); ?></a></td>
+									<td><a href="/profile/<?php echo strtolower(secure_escape($user_info[$i]['username'])); ?>"><?php echo secure_escape($user_info[$i]['username']); ?></a></td>
 									<td><?php echo $user_info[$i]['score']; ?>pt</td>
 									<td><?php echo $user_info[$i]['last_solved']; ?></td>
 								</tr>
