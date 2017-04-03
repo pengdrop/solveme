@@ -1,0 +1,15 @@
+
+17.04.03
+
+- Completed the remade.
+
+-----------------------------------------------------------------------------
+
+17.04.04
+
+- Fixed a bug with 'last solved' on rank.
+  Thanks to LoG (malloc813)
+
+- Removed the 'target" attribute from <a> tag of username on rank.
+
+-----------------------------------------------------------------------------
