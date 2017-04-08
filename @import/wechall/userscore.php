@@ -3,21 +3,22 @@
 		# get user info
 		$p = $pdo->prepare('
 			SELECT
-				x.*
+				x.rank,
+				x.score
 			FROM
 				(
 					SELECT
 						@rank:=@rank+1 AS rank,
 						username,
 						score,
-						(SELECT auth_time FROM authlog WHERE BINARY username=u.username ORDER BY auth_time ASC LIMIT 1) AS last_solved
+						(SELECT auth_time FROM authlog WHERE BINARY username=u.username ORDER BY auth_time DESC LIMIT 1) AS last_solved
 					FROM
 						user AS u,
 						(SELECT @rank:=0) AS r
 					ORDER BY 
 						score DESC,
 						last_solved ASC
-				) AS x 
+				) AS x
 			WHERE BINARY x.username=:username
 			LIMIT 1
 		');
