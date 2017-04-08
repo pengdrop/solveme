@@ -13,3 +13,13 @@
 - Removed the 'target" attribute from <a> tag of username on rank.
 
 -----------------------------------------------------------------------------
+
+17.04.08
+
+- Fixed a bug with 'rank' on wechall/userscore
+
+- Removed the 'target" attribute from <a> tag of username on status.
+
+- Added labels(Admin, Newbie, All Clear) on profile.
+
+-----------------------------------------------------------------------------
