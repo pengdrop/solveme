@@ -51,6 +51,24 @@
 								<?php echo secure_escape($user_info['username']); ?><span class="badge"><?php echo $user_info['score']; ?>pt</span>
 							</h3>
 <?php
+	$label = '';
+
+	if(in_array(strtolower($username), $admin_list, true)){
+		$label .= '<span class="label label-primary m-r-10">Admin</span>';
+	}
+	else if($user_info['score'] === 0){
+		$label .= '<span class="label label-default m-r-10">Newbie</span>';
+	}
+	else if($total_score === $user_info['score']){
+		$label .= '<span class="label label-success m-r-10">All Clear</span>';
+	}
+
+	if($label){
+?>
+							<h4 class="m-t-10"><?php echo $label; ?></h4>
+<?php
+	}
+
 	# email protect
 	if($is_mine || is_admin()){
 ?>
