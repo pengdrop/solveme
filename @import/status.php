@@ -44,7 +44,7 @@
 ?>
 								<tr<?php if($log_info[$i]['username'] === $_SESSION['username']) echo ' class="info"'; ?>>
 									<td scope="row"><?php echo $log_info[$i]['no']; ?></td>
-									<td><a href="/profile/<?php echo strtolower(secure_escape($log_info[$i]['username'])); ?>" target="_blank"><?php echo secure_escape($log_info[$i]['username']); ?></a></td>
+									<td><a href="/profile/<?php echo strtolower(secure_escape($log_info[$i]['username'])); ?>"><?php echo secure_escape($log_info[$i]['username']); ?></a></td>
 									<td><?php echo secure_escape($log_info[$i]['problem_title']); ?><span class="badge"><?php echo secure_escape($log_info[$i]['problem_score']); ?>pt</span></td>
 									<td><?php echo $log_info[$i]['auth_time']; ?></td>
 								</tr>
