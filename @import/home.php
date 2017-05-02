@@ -28,7 +28,7 @@
 						<dl class="well">
 							<dt class="main-dt">Rules</dt>
 							<dd>
-								<ul class="list-unstyled">
+								<ul class="list-unstyled clear-margin">
 									<li>Only one registration per person is allowed.</li>
 									<li>Do not share the <var>flag</var> for solve the challenge. But, a small hint is allowed.</li>
 									<li>Do not bruteforce authentication. Even if you've solved with it, it's very futile.</li>
