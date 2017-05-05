@@ -85,7 +85,7 @@
 		}
 	}
 	function unset_login(){
-		unset($_SESSION['no'], $_SESSION['login'], $_SESSION['admin']);
+		unset($_SESSION['username'], $_SESSION['login'], $_SESSION['admin']);
 	}
 	function is_username($username){
 		return preg_match('/^[a-z0-9_-]{5,20}$/is', $username);
