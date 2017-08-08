@@ -17,11 +17,18 @@
 		$p->execute();
 		$p->fetch(PDO::FETCH_ASSOC) and die(json_encode(array('status' => 'e'))); # already exists email
 
-		$p = $pdo->prepare("INSERT INTO user(username, email, password) VALUES(:username, :email, :password)");
+		$p = $pdo->prepare("INSERT INTO user(username, email, password, score) VALUES(:username, :email, :password, 0)");
 		$p->bindParam(':username', $_POST['username']);
 		$p->bindParam(':email', $_POST['email']);
 		$p->bindValue(':password', secure_hash($_POST['password']));
 		$p->execute();
+
+		$p = $pdo->prepare('SELECT 1 FROM user WHERE username=:username AND email=:email AND password=:password LIMIT 1');
+		$p->bindParam(':username', $_POST['username']);
+		$p->bindParam(':email', $_POST['email']);
+		$p->bindValue(':password', secure_hash($_POST['password']));
+		$p->execute();
+		$p->fetch(PDO::FETCH_ASSOC) or die(json_encode(array('status' => 'x'))); # not exists username
 
 		set_login($_POST['username']);
 
