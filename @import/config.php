@@ -11,7 +11,7 @@
 	# website setting
 	define('__HASH_SALT__', '**secret**');
 	define('__IS_HTML_COMPRESS__', true);
-	define('__IS_DEBUG__', true);
+	define('__IS_DEBUG__', false);
 	$admin_list = array('admin', 'safflower');
 
 	# debug mode
