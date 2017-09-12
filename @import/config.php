@@ -3,15 +3,15 @@
 	session_start();
 
 	# sql setting
-	define('__DB_HOST__','**SECRET**');
-	define('__DB_USERNAME__','**SECRET**');
-	define('__DB_PASSWORD__','**SECRET**');
-	define('__DB_NAME__','**SECRET**');
+	define('__DB_HOST__','**secret**');
+	define('__DB_USERNAME__','**secret**');
+	define('__DB_PASSWORD__','**secret**');
+	define('__DB_NAME__','**secret**');
 
 	# website setting
-	define('__HASH_SALT__', '**SECRET**');
+	define('__HASH_SALT__', '**secret**');
 	define('__IS_HTML_COMPRESS__', true);
-	define('__IS_DEBUG__', false);
+	define('__IS_DEBUG__', true);
 	$admin_list = array('admin', 'safflower');
 
 	# debug mode
@@ -23,6 +23,7 @@
 	try{
 		$pdo = new PDO('mysql:host='.__DB_HOST__.';dbname='.__DB_NAME__, __DB_USERNAME__, __DB_PASSWORD__);
 	}catch(exception $e){
+		die($e);
 		error(444);
 	}
 
@@ -96,4 +97,7 @@
 	}
 	function is_password($password){
 		return check_length($password, 6, 50);
+	}
+	function is_comment($comment){
+		return check_length($comment, 0, 30);
 	}

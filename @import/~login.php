@@ -6,7 +6,7 @@
 		is_username($_POST['username']) or die(json_encode(array('status' => 'x'))); # valid username 
 		is_password($_POST['password']) or die(json_encode(array('status' => 'x'))); # valid password
 
-		$p = $pdo->prepare('SELECT username FROM user WHERE username=:username AND password=:password LIMIT 1');
+		$p = $pdo->prepare('SELECT username FROM solveme_user WHERE username=:username AND password=:password LIMIT 1');
 		$p->bindParam(':username', $_POST['username']);
 		$p->bindValue(':password', secure_hash($_POST['password']));
 		$p->execute();

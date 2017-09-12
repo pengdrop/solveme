@@ -39,7 +39,7 @@
 	<body>
 		<div class="container-fluid v-center">
 			<div class="row">
-				<div class="col-sm-6 col-md-4 h-center">
+				<div class="col-sm-6 col-md-6 h-center">
 					<header class="text-center">
 						<a class="text-black clear-decoration" href="/">
 							<img class="logo-mark" src="/img/bulb.png"><span class="logo-major">Solve Me</span><br>

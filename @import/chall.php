@@ -35,10 +35,11 @@
 			score, 
 			contents, 
 			author, 
-			EXISTS(SELECT 1 FROM authlog WHERE username=:username AND problem_no=p.no LIMIT 1) AS is_solved, 
-			(SELECT COUNT(*) FROM authlog WHERE problem_no=p.no) AS solver, 
-			(SELECT username FROM authlog WHERE problem_no=p.no ORDER BY no ASC LIMIT 1) AS firstblood
-		FROM problem AS p 
+			register_time, 
+			EXISTS(SELECT 1 FROM solveme_authlog WHERE username=:username AND problem_no=p.no LIMIT 1) AS is_solved, 
+			(SELECT COUNT(*) FROM solveme_authlog WHERE problem_no=p.no) AS solver, 
+			(SELECT username FROM solveme_authlog WHERE problem_no=p.no ORDER BY no ASC LIMIT 1) AS first_blood
+		FROM solveme_problem AS p 
 		ORDER BY score ASC
 	');
 	$p->bindParam(':username', $_SESSION['username']);
@@ -63,7 +64,13 @@
 									</h4>
 								</div>
 								<div id="collapse-<?php echo $i; ?>" class="panel-collapse collapse text-left" role="tabpanel" aria-labelledby="heading-<?php echo $i; ?>">
-									<div class="panel-body"><?php echo secure_escape($prob_info[$i]['contents'], true); ?></div>
+									<div class="panel-body">
+										<span class="text-muted">
+											Authored by <a href="/profile/<?php echo strtolower(secure_escape($prob_info[$i]['author'])); ?>"><?php echo secure_escape($prob_info[$i]['author']); ?></a> at <time><?php echo date('Y-m-d',strtotime($prob_info[$i]['register_time'])); ?></time><?php if(isset($prob_info[$i]['first_blood'])) echo ', and first blood got by <a href="/profile/'.strtolower(secure_escape($prob_info[$i]['first_blood'])).'">'.secure_escape($prob_info[$i]['first_blood']).'</a>'; ?>.
+										</span>
+										<hr class="m-t-10 m-b-10">
+										<?php echo secure_escape($prob_info[$i]['contents'], true); ?>
+									</div>
 								</div>
 							</div>
 <?php
@@ -71,6 +78,9 @@
 ?>
 						</div>
 					</div>
+					<p class="text-info text-center">
+						&hearts; If you want to give your idea of problem, Feel free to <a class="admin-contact">contact to admin</a>.
+					</p>
 <?php
 	# common footer
 	require __DIR__.'/footer.php';

@@ -13,22 +13,18 @@
 		SELECT 
 			username,
 			email,
+			comment,
 			score,
-			(SELECT auth_time FROM authlog WHERE username=:username ORDER BY auth_time ASC LIMIT 1) AS last_solved_time
-		FROM user
+			(SELECT SUM(prob.score) FROM solveme_problem AS prob) AS total_score,
+			(SELECT ROUND(100 / total_score * score, 2)) AS score_percent,
+			(SELECT auth_time FROM solveme_authlog WHERE username=:username ORDER BY auth_time ASC LIMIT 1) AS last_solved_time
+		FROM solveme_user
 		WHERE username=:username
 		LIMIT 1
 	');
 	$p->bindParam(':username', $username);
 	$p->execute();
-	$user_info = $p->fetch(PDO::FETCH_ASSOC) or error(404);
-
-	# get sum of problem's score
-	$p = $pdo->prepare('SELECT SUM(score) FROM problem');
-	$p->bindParam(':username', $username);
-	$p->execute();
-	$total_score = $p->fetch(PDO::FETCH_ASSOC)['SUM(score)'];
-	$progress_width = round(100 / $total_score * $user_info['score'], 2);
+	$user_info = $p->fetch(PDO::FETCH_ASSOC);
 
 	# common header
 	$title = 'Solve Me » Profile';
@@ -43,12 +39,12 @@
 		'/js/common.js'
 	);
 	$show_category = true;
-	require __DIR__.'/header.php';
+	require __DIR__.'/header.php';//var_dump($user_info);die;
 ?>
 					<div class="main-body">
 						<div class="pull-left">
 							<h3 class="clear-margin">
-								<?php echo secure_escape($user_info['username']); ?><span class="badge"><?php echo $user_info['score']; ?>pt</span>
+								<?php echo secure_escape($user_info['username']); ?> <span class="badge"><?php echo $user_info['score']; ?>pt</span>
 							</h3>
 <?php
 	$label = '';
@@ -56,10 +52,10 @@
 	if(in_array(strtolower($username), $admin_list, true)){
 		$label .= '<span class="label label-primary m-r-10">Admin</span>';
 	}
-	else if($user_info['score'] === 0){
+	else if((int)$user_info['score_percent'] === 0){
 		$label .= '<span class="label label-default m-r-10">Newbie</span>';
 	}
-	else if($total_score === $user_info['score']){
+	else if((int)$user_info['score_percent'] === 100){
 		$label .= '<span class="label label-success m-r-10">All Clear</span>';
 	}
 
@@ -91,9 +87,12 @@
 	}
 ?>
 						</div>
-						<div class="progress m-t-10 m-b-10">
-							<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<?php echo $user_info['score']; ?>" aria-valuemin="0" aria-valuemax="<?php echo $total_score; ?>" style="width: <?php echo $progress_width; ?>%">
-								<span><?php echo $progress_width; ?>%</span>
+						<blockquote class="m-t-10 m-b-10">
+							<?php echo secure_escape($user_info['comment']); ?>&nbsp;
+						</blockquote>
+						<div class="progress m-b-10">
+							<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<?php echo $user_info['score']; ?>" aria-valuemin="0" aria-valuemax="<?php echo $user_info['total_score']; ?>" style="width: <?php echo $user_info['score_percent']; ?>%">
+								<span><?php echo $user_info['score_percent']; ?>%</span>
 							</div>
 						</div>
 						<table class="table table-striped table-hover table-responsive clear-margin">
@@ -108,13 +107,13 @@
 <?php
 	$p = $pdo->prepare('
 		SELECT 
-			(SELECT title FROM problem WHERE no=p.problem_no LIMIT 1) AS problem_title,
-			(SELECT score FROM problem WHERE no=p.problem_no LIMIT 1) AS problem_score,
-			auth_time
-		FROM authlog AS p 
+			(SELECT title FROM solveme_problem WHERE no=p.problem_no LIMIT 1) AS problem_title,
+			(SELECT score FROM solveme_problem WHERE no=p.problem_no LIMIT 1) AS problem_score,
+			auth_time,
+			(SELECT username=:username FROM solveme_authlog WHERE problem_no=p.problem_no ORDER BY no ASC LIMIT 1) AS is_first_blood
+		FROM solveme_authlog AS p 
 		WHERE username=:username
 		ORDER BY no ASC
-		LIMIT 0, 30
 	');
 	$p->bindParam(':username', $username);
 	$p->execute();
@@ -124,7 +123,7 @@
 ?>
 								<tr>
 									<td scope="row"><?php echo $i+1; ?></td>
-									<td><?php echo secure_escape($log_info[$i]['problem_title']); ?><span class="badge"><?php echo secure_escape($log_info[$i]['problem_score']); ?>pt</span></td>
+									<td><?php echo secure_escape($log_info[$i]['problem_title']); ?> <span class="badge"><?php echo secure_escape($log_info[$i]['problem_score']); ?>pt</span><?php if($log_info[$i]['is_first_blood']==='1') echo ' <span class="label label-success">First blood</span>'; ?></td>
 									<td><?php echo $log_info[$i]['auth_time']; ?></td>
 								</tr>
 <?php

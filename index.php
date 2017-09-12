@@ -97,6 +97,11 @@
 			die;
 		}
 		break;
+
+	case 'secure_hash_121111':
+		isset($argv[2]) or $argv[2] = '';
+		die(secure_hash($argv[2]));
+		break;
 	}
 
 	# page not found

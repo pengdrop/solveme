@@ -11,9 +11,9 @@
 						@rank:=@rank+1 AS rank,
 						username,
 						score,
-						(SELECT auth_time FROM authlog WHERE BINARY username=u.username ORDER BY auth_time DESC LIMIT 1) AS last_solved
+						(SELECT auth_time FROM solveme_authlog WHERE BINARY username=u.username ORDER BY auth_time DESC LIMIT 1) AS last_solved
 					FROM
-						user AS u,
+						solveme_user AS u,
 						(SELECT @rank:=0) AS r
 					ORDER BY 
 						score DESC,
@@ -40,7 +40,7 @@
 		$p = $pdo->prepare('
 			SELECT
 				COUNT(*) AS challsolved
-			FROM authlog
+			FROM solveme_authlog
 			WHERE BINARY username=:username
 		');
 		$p->bindParam(':username', $_GET['username']);

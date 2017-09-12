@@ -17,8 +17,9 @@
 
 	$p = $pdo->prepare('
 		SELECT 
-			email
-		FROM user
+			email,
+			comment
+		FROM solveme_user
 		WHERE username=:username
 		LIMIT 1
 	');
@@ -47,6 +48,10 @@
 							<div class="form-group">
 								<label class="sr-only" for="edit-confirm-new-password">Confirm New Password</label>
 								<input type="password" class="form-control" id="edit-confirm-new-password" placeholder="Confirm New Password" data-toggle="tooltip" data-placement="bottom" title="The password must be case sensitive and 6 to 50 characters long, and must be equal to above password.">
+							</div>
+							<div class="form-group">
+								<label class="sr-only" for="edit-comment">Comment</label>
+								<input type="text" class="form-control" id="edit-comment" placeholder="Comment" data-toggle="tooltip" data-placement="bottom" title="The comment must be 30 characters long." value="<?php echo $user_info['comment']; ?>">
 							</div>
 							<div class="alert-parent"></div>
 							<div class="text-right">

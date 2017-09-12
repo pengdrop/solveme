@@ -50,6 +50,10 @@
 								<label class="sr-only" for="join-confirm-password">Confirm Password</label>
 								<input type="password" class="form-control" id="join-confirm-password" placeholder="Confirm Password" data-toggle="tooltip" data-placement="bottom" title="The password must be case sensitive and 6 to 50 characters long, and must be equal to above password.">
 							</div>
+							<div class="form-group">
+								<label class="sr-only" for="join-comment">Comment</label>
+								<input type="text" class="form-control" id="join-comment" placeholder="Comment" data-toggle="tooltip" data-placement="bottom" title="The comment must be 30 characters long.">
+							</div>
 							<div class="pull-left text-left">
 								Do you've a problem?<br>
 								<a class="admin-contact">Contact to admin.</a>

@@ -20,7 +20,7 @@
 							<dd>
 								The Solve Me offers the opportunity for you to test your knowledge.<br>
 								This challenge's method is CTF (Capture The Flag).<br>
-								To solve the challenge, find the hidden answer (a.k.a. <var>flag</var>) in problems.<br>
+								To solve the challenge, find the hidden answer (e.g. <code>flag{...}</code>) in problems.<br>
 								If you solve the challenge and authentication the <var>flag</var>, you'll get a score.<br>
 								Have fun solving challenge!<br>
 							</dd>
@@ -40,6 +40,9 @@
 							<dt class="main-dt">Contact</dt>
 							<dd>
 								If you have any questions or problems, <a class="admin-contact">contact to admin</a>.<br>
+								<noscript>
+									<span class="text-danger">If you want to contact, please enable javascript on your web browser.</span><br>
+								</noscript>
 								I might not be able to answer immediately. ;)<br>
 							</dd>
 						</dl>
