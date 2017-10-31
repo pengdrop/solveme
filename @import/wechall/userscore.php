@@ -31,7 +31,7 @@
 			SELECT
 				SUM(score) AS maxscore,
 				COUNT(*) AS challcount
-			FROM problem
+			FROM solveme_problem
 		');
 		$p->execute();
 		$chall_info = $p->fetch(PDO::FETCH_ASSOC) or die('0');
@@ -51,7 +51,7 @@
 		$p = $pdo->prepare('
 			SELECT
 				COUNT(*) AS usercount
-			FROM user
+			FROM solveme_user
 		');
 		$p->execute();
 		$all_users_info = $p->fetch(PDO::FETCH_ASSOC) or die('0');
