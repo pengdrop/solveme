@@ -20,7 +20,6 @@
 								<tr>
 									<th scope="col">#</th>
 									<th scope="col">Username</th>
-									<th scope="col">Comment</th>
 									<th scope="col">Score</th>
 									<th scope="col">Last Solved</th>
 								</tr>
@@ -33,12 +32,15 @@
 			comment,
 			score,
 			(SELECT auth_time FROM solveme_authlog WHERE username=u.username ORDER BY auth_time DESC LIMIT 1) AS last_solved
-		FROM solveme_user AS u 
-		WHERE score
+		FROM 
+			solveme_user AS u 
+		WHERE 
+			score
 		ORDER BY 
 			score DESC,
 			last_solved ASC
-		LIMIT 0, 30
+		LIMIT 
+			0, 30
 	");
 	$p->execute();
 	$user_info = $p->fetchAll(PDO::FETCH_ASSOC);
@@ -47,8 +49,7 @@
 ?>
 								<tr<?php if($user_info[$i]['username'] === $_SESSION['username']) echo ' class="info"'; ?>>
 									<td scope="row"><?php echo $i+1; ?></td>
-									<td><a href="/profile/<?php echo strtolower(secure_escape($user_info[$i]['username'])); ?>"><?php echo secure_escape($user_info[$i]['username']); ?></a></td>
-									<td><?php echo secure_escape($user_info[$i]['comment']); ?></td>
+									<td><a href="/profile/<?php echo strtolower(secure_escape($user_info[$i]['username'])); ?>" data-toggle="tooltip" data-placement="bottom" title="<?php echo secure_escape($user_info[$i]['comment']); ?>"><?php echo secure_escape($user_info[$i]['username']); ?></a></td>
 									<td><?php echo $user_info[$i]['score']; ?>pt</td>
 									<td><?php echo $user_info[$i]['last_solved']; ?></td>
 								</tr>
@@ -58,7 +59,6 @@
 ?>
 								<tr>
 									<td scope="row">-</td>
-									<td>-</td>
 									<td>-</td>
 									<td>-</td>
 									<td>-</td>
