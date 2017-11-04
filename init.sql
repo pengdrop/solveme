@@ -20,6 +20,7 @@ CREATE TABLE `solveme_user` (
   `username` varchar(20) NOT NULL,
   `email` varchar(320) NOT NULL,
   `password` binary(64) NOT NULL,
+  `comment` varchar(30) NOT NULL,
   `score` int(4) NOT NULL,
   `join_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
