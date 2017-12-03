@@ -1,6 +1,6 @@
 # Solve Me
 
-![main.png](main.png)
+![main](https://i.imgur.com/u5LwdYl.png)
 
 Jeopardy style wargame website
 
