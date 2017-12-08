@@ -1,24 +1,26 @@
 <?php
 	# common header
-	$title = 'Solve Me » Status';
+	$title = __SITE__['title'].' » Status';
 	$need_login = true;
-	$css_files = array(
-		'//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
-		'/css/common.css'
-	);
-	$js_files = array(
-		'//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js',
-		'//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
-		'/js/common.js'
-	);
+	$js_files = [
+		'/assets/js/jquery.min.js',
+		'/assets/js/bootstrap.min.js',
+		'/assets/js/common.js'
+	];
 	$show_category = true;
 	require __DIR__.'/header.php';
 ?>
-					<div class="main-body">
-						<table class="table table-striped table-hover table-responsive clear-margin">
+					<main class="main-body">
+						<table class="table table-striped table-hover table-responsive m-0">
+							<colgroup>
+								<col style="width:10%">
+								<col style="width:25%">
+								<col style="width:35%">
+								<col style="width:30%">
+							</colgroup>
 							<thead>
 								<tr>
-									<th scope="col">#</th>
+									<th scope="col" class="text-center">#</th>
 									<th scope="col">Username</th>
 									<th scope="col">Problem</th>
 									<th scope="col">Solved Time</th>
@@ -26,34 +28,39 @@
 							</thead>
 							<tbody>
 <?php
-	$p = $pdo->prepare('
-		SELECT 
-			no,
-			username,
-			(SELECT title FROM solveme_problem WHERE no=p.problem_no LIMIT 1) AS problem_title,
-			(SELECT score FROM solveme_problem WHERE no=p.problem_no LIMIT 1) AS problem_score,
-			auth_time
-		FROM solveme_authlog AS p 
-		ORDER BY no DESC
-		LIMIT 0, 30
-	');
+	$p = $pdo->prepare("
+		SELECT
+			`no`,
+			`username`,
+			(SELECT `comment` FROM `{$db_prefix}_user` AS `u` WHERE `username`=`p`.`username` LIMIT 1) AS `user_comment`,
+			(SELECT `title` FROM `{$db_prefix}_problem` WHERE `no`=`p`.`problem_no` LIMIT 1) AS `problem_title`,
+			(SELECT `score` FROM `{$db_prefix}_problem` WHERE `no`=`p`.`problem_no` LIMIT 1) AS `problem_score`,
+			`auth_time`
+		FROM
+			`{$db_prefix}_authlog` AS `p`
+		ORDER BY
+			`no` DESC
+		LIMIT
+			0, 16
+	");
 	$p->execute();
 	$log_info = $p->fetchAll(PDO::FETCH_ASSOC);
 
 	for($i = 0; isset($log_info[$i]); ++$i){
+		$problem_link = get_chall_link($log_info[$i]['problem_title']);
 ?>
 								<tr<?php if($log_info[$i]['username'] === $_SESSION['username']) echo ' class="info"'; ?>>
-									<td scope="row"><?php echo $log_info[$i]['no']; ?></td>
-									<td><a href="/profile/<?php echo strtolower(secure_escape($log_info[$i]['username'])); ?>"><?php echo secure_escape($log_info[$i]['username']); ?></a></td>
-									<td><?php echo secure_escape($log_info[$i]['problem_title']); ?> <span class="badge"><?php echo secure_escape($log_info[$i]['problem_score']); ?>pt</span></td>
-									<td><?php echo $log_info[$i]['auth_time']; ?></td>
+									<td scope="row" class="text-center"><?php echo strtoupper(base_convert($log_info[$i]['no'], 10, 16)); ?></td>
+									<td><a href="/profile/<?php echo strtolower(secure_escape($log_info[$i]['username'])); ?>" data-toggle="tooltip" data-placement="bottom" title="<?php echo secure_escape($log_info[$i]['user_comment']); ?>"><?php echo secure_escape($log_info[$i]['username']); ?></a></td>
+									<td><a href="/chall/<?php echo secure_escape($problem_link); ?>"><?php echo secure_escape($log_info[$i]['problem_title']); ?></a> <span class="badge"><?php echo secure_escape($log_info[$i]['problem_score']); ?>pt</span></td>
+									<td><time><?php echo $log_info[$i]['auth_time']; ?></time></td>
 								</tr>
 <?php
 	}
 	if($i === 0){
 ?>
 								<tr>
-									<td scope="row">-</td>
+									<td scope="row" class="text-center">-</td>
 									<td>-</td>
 									<td>-</td>
 									<td>-</td>
@@ -63,7 +70,7 @@
 ?>
 							</tbody>
 						</table>
-					</div>
+					</main>
 <?php
 	# common footer
 	require __DIR__.'/footer.php';

@@ -1,21 +1,14 @@
 <?php
 	# common header
-	$title = 'Solve Me';
+	$title = __SITE__['title'];
 	$need_login = false;
-	$css_files = array(
-		'//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
-		'/css/common.css'
-	);
-	$js_files = array(
-		'//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js',
-		'//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
-		'/js/common.js',
-		'/js/login.js'
-	);
+	$js_files = [
+		'/assets/js/login.js'
+	];
 	$show_category = false;
 	require __DIR__.'/header.php';
 ?>
-					<div class="main-body">
+					<main class="main-body">
 						<form id="login-form">
 							<div class="form-group">
 								<label class="sr-only" for="login-username">Username</label>
@@ -30,7 +23,7 @@
 								<a class="admin-contact">Contact to admin.</a>
 							</div>
 							<div class="text-right">
-								<button type="button" class="btn btn-default m-r-10 show-join">Join</button><button type="submit" class="btn btn-success">Login</button>
+								<button type="button" class="btn btn-default mr-10 show-join">Join</button><button type="submit" class="btn btn-success">Login</button>
 							</div>
 						</form>
 						<form id="join-form" class="no-display">
@@ -40,7 +33,10 @@
 							</div>
 							<div class="form-group">
 								<label class="sr-only" for="join-email">Email</label>
-								<input type="email" class="form-control" id="join-email" placeholder="Email" data-toggle="tooltip" data-placement="bottom" title="The email must be unique and valid, It will use when you forgot password.">
+								<input type="text" class="form-control" id="join-email" placeholder="Email" data-toggle="tooltip" data-placement="bottom" title="The email must be unique and valid, It will use when you forgot password.">
+								<div class="checkbox ml-10">
+									<label><input type="checkbox" id="join-open-email"> Email open to the public in <a href="/profile">profile page</a>.</label>
+								</div>
 							</div>
 							<div class="form-group">
 								<label class="sr-only" for="join-password">Password</label>
@@ -59,11 +55,10 @@
 								<a class="admin-contact">Contact to admin.</a>
 							</div>
 							<div class="text-right">
-								<button type="button" class="btn btn-default m-r-10 show-login">Login</button><button type="submit" class="btn btn-success">Join</button>
+								<button type="button" class="btn btn-default mr-10 show-login">Login</button><button type="submit" class="btn btn-success">Join</button>
 							</div>
 						</form>
-						<div class="alert-parent"></div>
-					</div>
+					</main>
 <?php
 	# common footer
 	require __DIR__.'/footer.php';

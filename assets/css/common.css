@@ -1,0 +1,166 @@
+@import '//fonts.googleapis.com/css?family=Exo+2';
+body, html {
+    width: 100%;
+    height: 100%
+}
+body {
+    display: table;
+    padding: 20px 0;
+}
+* {
+    font-family: 'Exo 2', 'sans-serif';
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.sans-serif{
+    font-family: 'sans-serif';
+}
+.v-center {
+    display: table-cell;
+    vertical-align: middle;
+}
+.h-center {
+    float: none;
+    margin: 0 auto;
+}
+.alert{
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+.mt-m4 {
+    margin-top: -4px;
+}
+
+.m-0 {
+    margin: 0;
+}
+.mt-0 {
+    margin-top: 0;
+}
+.mr-0 {
+    margin-right: 0;
+}
+.mb-0 {
+    margin-bottom: 0;
+}
+.ml-0 {
+    margin-left: 0;
+}
+
+.mr-5 {
+    margin-right: 5px;
+}
+
+.m-10{
+    margin: 10px;
+}
+.mt-10 {
+    margin-top: 10px;
+}
+.mr-10 {
+    margin-right: 10px;
+}
+.mb-10 {
+    margin-bottom: 10px;
+}
+.ml-10 {
+    margin-left: 10px;
+}
+
+.m-15{
+    margin: 15px;
+}
+.mt-15 {
+    margin-top: 15px;
+}
+.mr-15 {
+    margin-right: 15px;
+}
+.mb-15 {
+    margin-bottom: 15px;
+}
+.ml-15 {
+    margin-left: 15px;
+}
+
+.p-0 {
+    padding: 0;
+}
+.p-10 {
+    padding: 10px;
+}
+.p-15 {
+    padding: 15px;
+}
+
+.resize-v{
+    resize:vertical;
+}
+
+.clear-decoration, .clear-decoration:focus, .clear-decoration:hover {
+    text-decoration: none;
+}
+.no-display {
+    display: none;
+}
+.text-black, .text-black:focus, .text-black:hover {
+    color: #333;
+}
+.text-muted, .text-muted:focus, .text-muted:hover {
+    color: #777;
+}
+.logo-mark {
+    width: 40px;
+    height: 40px;
+    margin: -25px 10px 0 0;
+}
+.logo-major {
+    font-size: 42px;
+    font-weight: 600;
+}
+.main-dt {
+    font-size: 20px;
+    margin-top: 20px;
+}
+.main-dt:first-child {
+    margin-top: 0;
+}
+.well:last-child {
+    margin-bottom: 0;
+}
+.badge {
+    margin-top:-3px;
+}
+.main-body {
+    padding: 20px 0;
+    word-break: break-all;
+}
+.table {
+    border: 1px solid #ddd;
+}
+.panel-body {
+    word-break: break-all;
+}
+
+.main-menu ul li a{
+    color: #333;
+}
+.go-back,
+.secret-contact,
+*[data-toggle='modal'],
+input[type='checkbox']{
+    cursor:pointer;
+}
+
+.btn-dark {
+    color: #fff;
+    background-color: #666;
+    border-color: #555;
+}
+.btn-dark:hover,
+.btn-dark:focus {
+    color: #fff;
+    background-color: #444;
+    border-color: #555;
+}

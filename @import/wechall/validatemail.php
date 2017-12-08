@@ -1,7 +1,17 @@
 <?php
-	if(isset($_GET['username'], $_GET['email']) && !is_array($_GET['username']) && !is_array($_GET['email'])){
+	if(isset($_GET['username'], $_GET['email']) && !is_username($_GET['username']) && !is_email($_GET['email'])){
 		# user check
-		$p = $pdo->prepare('SELECT 1 FROM solveme_user WHERE BINARY username=:username AND BINARY email=:email LIMIT 1');
+		$p = $pdo->prepare("
+			SELECT
+				1
+			FROM
+				`{$db_prefix}_user`
+			WHERE
+				BINARY `username`=:username AND
+				BINARY `email`=:email
+			LIMIT
+				1
+		");
 		$p->bindParam(':username', $_GET['username']);
 		$p->bindParam(':email', $_GET['email']);
 		$p->execute();

@@ -1,43 +1,89 @@
 <?php
-	if(isset($_POST['email'], $_POST['password'], $_POST['new-password'], $_POST['comment'])){
+	if(isset($_POST['email'], $_POST['open-email'], $_POST['password'], $_POST['new-password'], $_POST['comment'])){
 		# not logged in
-		is_login() or die(json_encode(array('status' => 'l')));
+		is_login() or output(['status' => 'l']);
 
-		is_email($_POST['email']) or die(json_encode(array('status' => 'x'))); # valid email
-		is_password($_POST['password']) or die(json_encode(array('status' => 'x'))); # valid password
+		is_email($_POST['email']) or output(['status' => 'x']); # valid email
+		is_open_email($_POST['open-email']) or output(['status' => 'x']); # valid open email
+		is_password($_POST['password']) or output(['status' => 'x']); # valid password
 		if(isset($_POST['new-password'][0])){
-			is_password($_POST['new-password']) or die(json_encode(array('status' => 'x'))); # valid new password
+			is_password($_POST['new-password']) or output(['status' => 'x']); # valid new password
 		}
-		is_comment($_POST['comment']) or die(json_encode(array('status' => 'x'))); # valid comment
+		is_comment($_POST['comment']) or output(['status' => 'x']); # valid comment
 
-		$p = $pdo->prepare('SELECT 1 FROM solveme_user WHERE (SELECT email FROM solveme_user WHERE username=:username LIMIT 1)!=:new_email AND email=:new_email LIMIT 1');
+		$p = $pdo->prepare("
+			SELECT
+				1
+			FROM
+				`{$db_prefix}_user`
+			WHERE
+				(SELECT `email` FROM `{$db_prefix}_user` WHERE `username`=:username LIMIT 1)!=:new_email AND
+				`email`=:new_email
+			LIMIT
+				1
+		");
 		$p->bindParam(':new_email', $_POST['email']);
 		$p->bindParam(':username', $_SESSION['username']);
 		$p->execute();
-		$p->fetch(PDO::FETCH_ASSOC) and die(json_encode(array('status' => 'e'))); # already exists email
+		$p->fetch(PDO::FETCH_ASSOC) and output(['status' => 'e']); # already exists email
 
-		$p = $pdo->prepare('SELECT 1 FROM solveme_user WHERE username=:username AND password=:password LIMIT 1');
+		$p = $pdo->prepare("
+			SELECT
+				1
+			FROM
+				`{$db_prefix}_user`
+			WHERE
+				`username`=:username AND
+				`password`=:password
+			LIMIT
+				1
+		");
 		$p->bindParam(':username', $_SESSION['username']);
 		$p->bindValue(':password', secure_hash($_POST['password']));
 		$p->execute();
-		$p->fetch(PDO::FETCH_ASSOC) or die(json_encode(array('status' => 'p'))); # wrong password
+		$p->fetch(PDO::FETCH_ASSOC) or output(['status' => 'p']); # wrong password
 
 		# update info
 		if(isset($_POST['new-password'][0])){ # password change
-			$p=$pdo->prepare('UPDATE solveme_user SET email=:email, password=:password, comment=:comment WHERE username=:username LIMIT 1');
+			$p=$pdo->prepare("
+				UPDATE
+					`{$db_prefix}_user`
+				SET
+					`email`=:email,
+					`open_email`=:open_email,
+					`password`=:password,
+					`comment`=:comment
+				WHERE
+					`username`=:username
+				LIMIT
+					1
+			");
 			$p->bindParam(':username', $_SESSION['username']);
 			$p->bindParam(':email', $_POST['email']);
+			$p->bindParam(':open_email', $_POST['open-email']);
 			$p->bindParam(':comment', $_POST['comment']);
 			$p->bindValue(':password', secure_hash($_POST['new-password']));
 			$p->execute();
 		}else{
-			$p=$pdo->prepare('UPDATE solveme_user SET email=:email, comment=:comment WHERE username=:username LIMIT 1');
+			$p=$pdo->prepare("
+				UPDATE
+					`{$db_prefix}_user`
+				SET
+					`email`=:email,
+					`open_email`=:open_email,
+					`comment`=:comment
+				WHERE
+					`username`=:username
+				LIMIT
+					1
+			");
 			$p->bindParam(':username', $_SESSION['username']);
 			$p->bindParam(':email', $_POST['email']);
+			$p->bindParam(':open_email', $_POST['open-email']);
 			$p->bindParam(':comment', $_POST['comment']);
 			$p->execute();
 		}
 
 		# success
-		die(json_encode(array('status' => 'o')));
+		output(['status' => 'o']);
 	}

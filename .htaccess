@@ -1,11 +1,10 @@
 Options -Indexes
 ServerSignature Off
 
-ErrorDocument 403 /error.php
-ErrorDocument 404 /error.php
+ErrorDocument 403 /index.php
+ErrorDocument 404 /index.php
 
 AddDefaultCharset utf-8
-AddCharset utf-8 .css .js .xml .json .rss .atom
 
 <IfModule mod_php7.c>
 	php_flag magic_quotes_gpc off
@@ -49,4 +48,6 @@ AddCharset utf-8 .css .js .xml .json .rss .atom
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
 	RewriteRule . / [L]
+
+	RewriteRule ^\@ - [F,NC]
 </IfModule>
