@@ -24,7 +24,7 @@
 		SELECT
 			`username`,
 			`email`,
-			`open_email`
+			`open_email`,
 			`comment`,
 			`score`,
 			(SELECT SUM(`prob`.`score`) FROM `{$db_prefix}_problem` AS `prob`) AS `total_score`,
@@ -106,7 +106,7 @@
 						</div>
 						<div class="clearfix"></div>
 						<blockquote class="mt-10 mb-10"><?php
-	if($user_info['comment']){
+	if(isset($user_info['comment'][0])){
 		echo filter_var($user_info['comment'], FILTER_VALIDATE_URL) ?
 			secure_escape('[url]'.$user_info['comment'].'[/url]', true) :
 			secure_escape($user_info['comment']);
