@@ -28,11 +28,6 @@
 	# common header
 	$title = __SITE__['title'].' » '.$err_title;
 	$need_login = false;
-	$js_files = [
-		'/assets/js/jquery.min.js',
-		'/assets/js/bootstrap.min.js',
-		'/assets/js/common.js'
-	];
 	$show_category = false;
 	require __DIR__.'/header.php';
 ?>

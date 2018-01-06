@@ -2,11 +2,6 @@
 	# common header
 	$title = __SITE__['title'].' » Rank';
 	$need_login = true;
-	$js_files = [
-		'/assets/js/jquery.min.js',
-		'/assets/js/bootstrap.min.js',
-		'/assets/js/common.js'
-	];
 	$show_category = true;
 	require __DIR__.'/header.php';
 
