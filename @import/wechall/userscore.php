@@ -1,5 +1,5 @@
 <?php
-	if(isset($_GET['username']) && !is_username($_GET['username'])){
+	if(isset($_GET['username']) && is_username($_GET['username'])){
 		# get user info
 		$p = $pdo->prepare("
 			SELECT
@@ -19,8 +19,10 @@
 						`score` DESC,
 						`last_solved` ASC
 				) AS `x`
-			WHERE BINARY `x`.`username`=:username
-			LIMIT 1
+			WHERE
+				`x`.`username`=:username
+			LIMIT
+				1
 		");
 		$p->bindParam(':username', $_GET['username']);
 		$p->execute();
@@ -44,7 +46,7 @@
 			FROM
 				`{$db_prefix}_authlog`
 			WHERE
-				BINARY `username`=:username
+				`username`=:username
 		");
 		$p->bindParam(':username', $_GET['username']);
 		$p->execute();
@@ -69,6 +71,5 @@
 		$usercount = $all_users_info['usercount'];
 
 		die("{$username}:{$rank}:{$score}:{$maxscore}:{$challsolved}:{$challcount}:{$usercount}");
-	}else{
-		die('0');
 	}
+	die('0');
