@@ -54,10 +54,10 @@
 	if(is_admin_username($username)){
 		$label .= '<span class="label label-primary mr-5">Admin</span>';
 	}
-	else if($user_info['score_percent'] === '100'){
+	else if((int)$user_info['score_percent'] === 100){
 		$label .= '<span class="label label-success mr-5">All Clear</span>';
 	}
-	else if($user_info['score_percent'] === '0'){
+	else if((int)$user_info['score_percent'] === 0){
 		$label .= '<span class="label label-default mr-5">Newbie</span>';
 	}
 	else{
