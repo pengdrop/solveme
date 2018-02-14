@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS `[DB_PREFIX]_authlog` (
 
 CREATE TABLE IF NOT EXISTS `[DB_PREFIX]_problem` (
 	`no` int(4) NOT NULL,
+	`category` varchar(20) NOT NULL,
 	`title` varchar(50) NOT NULL,
 	`contents` text NOT NULL,
 	`score` int(4) NOT NULL,

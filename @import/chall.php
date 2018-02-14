@@ -32,6 +32,7 @@
 	# get prob info
 	$p = $pdo->prepare("
 		SELECT
+			`category`,
 			`title`,
 			`score`,
 			`contents`,
@@ -43,6 +44,7 @@
 		FROM
 			`{$db_prefix}_problem` AS `p`
 		ORDER BY
+			`category` DESC,
 			`score` ASC
 	");
 	$p->bindParam(':username', $_SESSION['username']);
@@ -77,9 +79,16 @@
 								</div>
 							</div>
 						</form>
-						<div class="panel-group m-0" id="accordion" role="tablist" aria-multiselectable="true">
+						<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 <?php
+	$now_cat = '';
 	for($i = 0; isset($prob_info[$i]); ++$i){
+		if($now_cat !== $prob_info[$i]['category']){
+			$now_cat = $prob_info[$i]['category'];
+?>
+			<div class="text-muted mt-10 mb-5"><?php echo secure_escape($now_cat); ?></div>
+<?php
+		}
 		$link = get_chall_link($prob_info[$i]['title']);
 ?>
 							<div class="panel panel-default">
