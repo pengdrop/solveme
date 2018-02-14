@@ -4,6 +4,7 @@
 
 	isset($_GET['username']) and $_GET['username'] === __DB__['username'] or die('Input the valid username of database.');
 	isset($_GET['password']) and $_GET['password'] === __DB__['password'] or die('Input the valid password of database.');
+	isset($_GET['prefix']) or die('Input the valid prefix of database.');
 
 	$file_path = __DIR__.'/@import/init.sql';
 	is_file($file_path) or die('init.sql file not found.');
@@ -20,6 +21,7 @@
 		$sql_query = trim($sql_query);
 		if(!isset($sql_query[0])) continue;
 
+		$sql_query = strtr($sql_query, ["[DB_PREFIX]" => $_GET['prefix']]);
 		$p = $pdo->prepare($sql_query);
 		$p->execute();
 
@@ -31,7 +33,5 @@
 			echo 'Succeed.<br><br>', PHP_EOL;
 		}
 	}
-
-	unlink(__FILE__);
 
 	die('SQL initialized.');
