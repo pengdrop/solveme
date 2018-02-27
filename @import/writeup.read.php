@@ -92,7 +92,7 @@
 							</div>
 							<div class="panel-body" style="min-height:250px">
 								<span class="text-muted">
-									Written by <a href="/profile/<?php echo secure_escape(strtolower($writeup_info['author'])); ?>"><?php echo secure_escape($writeup_info['author']); ?></a> at <time><?php echo date('Y-m-d',strtotime($writeup_info['register_time'])); ?></time>, and origin is <a href="/chall/<?php echo secure_escape(get_chall_link($writeup_info['problem_title'])); ?>"><?php echo secure_escape($writeup_info['problem_title']); ?></a>
+									Written by <a href="/profile/<?php echo secure_escape(strtolower($writeup_info['author'])); ?>"><?php echo secure_escape($writeup_info['author']); ?></a> at <time><?php echo date('Y-m-d H:i:s',strtotime($writeup_info['register_time'])); ?></time>, and origin is <a href="/chall/<?php echo secure_escape(get_chall_link($writeup_info['problem_title'])); ?>"><?php echo secure_escape($writeup_info['problem_title']); ?></a>
 								</span>
 								<hr class="mt-10 mb-10">
 								<?php echo secure_escape($writeup_info['contents'], true); ?>
