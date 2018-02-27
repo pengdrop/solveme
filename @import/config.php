@@ -143,7 +143,7 @@
 		return $min <= $len && $len <= $max;
 	}
 	function is_username($username){
-		return preg_match('/^[a-z0-9_-]{5,20}$/i', $username);
+		return preg_match('/\A[a-z0-9_-]{5,20}\z/i', $username);
 	}
 	function is_admin_username($username){
 		if(!is_username($username)) return false;
@@ -153,7 +153,7 @@
 	}
 	function is_email($email){
 		return check_length($email, 6, 320) &&
-			preg_match('/^[a-z0-9_.+-]+@[a-z0-9-]+\.[a-z0-9-.]+$/is', $email);
+			preg_match('/\A[a-z0-9_.+-]+@[a-z0-9-]+(\.[a-z0-9-]+)+\z/is', $email);
 	}
 	function is_open_email($enabled){
 		return $enabled === '1' || $enabled === '0';
@@ -165,10 +165,10 @@
 		return check_length($comment, 0, 30);
 	}
 	function is_chall_link($link){
-		return preg_match('/^[a-z0-9_]{1,50}$/', $link);
+		return preg_match('\A[a-z0-9_]{1,50}\z/', $link);
 	}
 	function is_writeup_no($no){
-		return preg_match('/^[0-9]{1,10}$/', $no);
+		return preg_match('\A[0-9]{1,10}\z/', $no);
 	}
 	function is_writeup_contents($contents){
 		return check_length($contents, 1, 10240);
