@@ -64,6 +64,9 @@
 		$label .= '<span class="label label-warning mr-5">Normal</span>';
 	}
 
+	if(in_array($username, ['debukuk'])){
+		$label .= '<span class="label label-primary mr-5">Contrib</span>';
+	}
 ?>
 									<h4 class="mt-10"><?php echo $label; ?></h4>
 <?php
@@ -74,7 +77,7 @@
 <?php
 	}else{
 ?>
-									<a class="secret-contact"><?php echo preg_replace('/^.*@(.*)$/is', '**secret**@${1}', $user_info['email']); ?></a>
+									<a class="secret-contact"><?php echo preg_replace('/\A.*@(.*)\z/is', '**secret**@${1}', $user_info['email']); ?></a>
 <?php
 	}
 ?>
