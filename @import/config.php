@@ -165,10 +165,10 @@
 		return check_length($comment, 0, 30);
 	}
 	function is_chall_link($link){
-		return preg_match('\A[a-z0-9_]{1,50}\z/', $link);
+		return preg_match('/\A[a-z0-9_]{1,50}\z/', $link);
 	}
 	function is_writeup_no($no){
-		return preg_match('\A[0-9]{1,10}\z/', $no);
+		return preg_match('/\A[0-9]{1,10}\z/', $no);
 	}
 	function is_writeup_contents($contents){
 		return check_length($contents, 1, 10240);
