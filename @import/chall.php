@@ -109,7 +109,7 @@
 								<div id="collapse-<?php echo secure_escape($link); ?>" class="panel-collapse collapse<?php echo $link === $chall_link ? ' in' : ''; ?> text-left" role="tabpanel" aria-labelledby="heading-<?php echo secure_escape($link); ?>">
 									<div class="panel-body">
 										<span class="text-muted">
-											Authored by <a href="/profile/<?php echo secure_escape(strtolower($prob_info[$i]['author'])); ?>"><?php echo secure_escape($prob_info[$i]['author']); ?></a> at <time><?php echo date('Y-m-d',strtotime($prob_info[$i]['register_time'])); ?></time><?php if(isset($prob_info[$i]['first_blood'])) echo ', and first blood got by <a href="/profile/'.secure_escape(strtolower($prob_info[$i]['first_blood'])).'">'.secure_escape($prob_info[$i]['first_blood']).'</a>'; ?>.
+											Authored by <a href="/profile/<?php echo secure_escape(strtolower($prob_info[$i]['author'])); ?>"><?php echo secure_escape($prob_info[$i]['author']); ?></a> at <time><?php echo date('Y-m-d H:i:s',strtotime($prob_info[$i]['register_time'])); ?></time><?php if(isset($prob_info[$i]['first_blood'])) echo ', and first blood got by <a href="/profile/'.secure_escape(strtolower($prob_info[$i]['first_blood'])).'">'.secure_escape($prob_info[$i]['first_blood']).'</a>'; ?>.
 										</span>
 										<hr class="mt-10 mb-10">
 										<?php echo secure_escape($prob_info[$i]['contents'], true); ?>
