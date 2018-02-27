@@ -1,5 +1,5 @@
 function show_alert(type, contents) {
-	var html='<div class="alert alert-' + type + ' alert-dismissible fade in alert-fixed" role="alert">' + 
+	let html='<div class="alert alert-' + type + ' alert-dismissible fade in alert-fixed" role="alert">' + 
 		'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span class="sans-serif" aria-hidden="true">&times;</span></button>' +
 		 '<span>' + contents+ '</span>' + 
 		 '</div>';
@@ -10,10 +10,25 @@ function show_alert(type, contents) {
 		$('.main-body .alert:last').after(html);
 	}
 
-	var alert = $('.main-body').find('.alert');
+	let alert = $('.main-body').find('.alert');
 	if(alert.length == 4){
 		alert[0].remove();
 	};
+}
+function localize_time(time){
+	let t = new Date(time + " UTC");
+	let year = t.getFullYear();
+	let month = t.getMonth() + 1;
+		month = month < 10 ? '0' + month : month;
+	let date = t.getDate();
+		date = date < 10 ? '0' + date : date;
+	let hour = t.getHours();
+		hour = hour < 10 ? '0' + hour : hour;
+	let min = t.getMinutes();
+		min = min < 10 ? '0' + min : min;
+	let sec = t.getSeconds();
+		sec = sec < 10 ? '0' + sec : sec;
+	return year + '-' + month + '-' + date + ' ' + hour + ':' + min + ':' + sec;
 }
 $(function() {
 	$('[data-toggle="tooltip"]').tooltip();
@@ -22,12 +37,15 @@ $(function() {
 		show_alert('info', '<b>Secret!</b> This user\'s email is secret for privacy.')
 	});
 	$('.go-back').click(function() {
-		var href = $(this).data('href');
-		var link = location.protocol+'//'+location.host + href;
+		let href = $(this).data('href'),
+			link = location.protocol+'//'+location.host + href;
 		if(document.referrer.indexOf(link) == 0){
 			history.back();
 		}else{
 			location.href=href;
 		}
+	});
+	$('time').each(function(){
+		$(this).html(localize_time($(this).html()))
 	});
 });
