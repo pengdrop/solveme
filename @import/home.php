@@ -7,7 +7,7 @@
 ?>
 					<main class="main-body">
 						<dl class="well">
-							<dt class="main-dt">About</dt>
+							<dt class="main-dt mb-5">About</dt>
 							<dd>
 								The Solve Me offers the opportunity for you to test your knowledge.<br>
 								To solve the challenge, find the <var>flag</var> (<code>flag\{[a-f0-9]{32}\}</code>) in challenge.<br>
@@ -17,7 +17,7 @@
 							</dd>
 						</dl>
 						<dl class="well">
-							<dt class="main-dt">Rules</dt>
+							<dt class="main-dt mb-5">Rules</dt>
 							<dd>
 								<ul class="list-unstyled m-0">
 									<li>Only one registration per person is allowed.</li>
@@ -29,7 +29,19 @@
 							</dd>
 						</dl>
 						<dl class="well">
-							<dt class="main-dt">Contact</dt>
+							<dt class="main-dt mb-5">Hall of Fame</dt>
+							<dd>
+								<ul class="list-unstyled m-0">
+									<li>
+										Debukuk (<a href="/profile/debukuk">@debukuk</a>)<br>
+										- Found a vulnerability of regular expression in valid check functions. (<a href="https://github.com/Safflower/solve-me/commit/51ba291accb49ae4a602a638d66871a9626e16d6">more info</a>)<br>
+										- Provided the challenge problem.<br>
+									</li>
+								</ul>
+							</dd>
+						</dl>
+						<dl class="well">
+							<dt class="main-dt mb-5">Contact</dt>
 							<dd>
 								If you have any questions or problems, <a class="admin-contact">contact to admin</a>.<br>
 								I might not be able to answer immediately. ;)<br>
