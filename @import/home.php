@@ -29,7 +29,7 @@
 							</dd>
 						</dl>
 						<dl class="well">
-							<dt class="main-dt mb-5">Hall of Fame</dt>
+							<dt class="main-dt mb-5">Thanks to</dt>
 							<dd>
 								<ul class="list-unstyled m-0">
 									<li>
