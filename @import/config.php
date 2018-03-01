@@ -28,6 +28,9 @@
 		'Admin',
 		'Safflower'
 	]);
+	define('__CONTRIB__', [
+		'Debukuk'
+	]);
 	define('__HASH_SALT__', '**secret**');
 
 	# option settings
@@ -150,6 +153,12 @@
 		$username = strtolower($username);
 		$admin_list = array_map('strtolower', __ADMIN__);
 		return in_array($username, $admin_list, true);
+	}
+	function is_contrib_username($username){
+		if(!is_username($username)) return false;
+		$username = strtolower($username);
+		$contrib_list = array_map('strtolower', __CONTRIB__);
+		return in_array($username, $contrib_list, true);
 	}
 	function is_email($email){
 		return check_length($email, 6, 320) &&
