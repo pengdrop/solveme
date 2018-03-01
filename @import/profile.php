@@ -64,7 +64,7 @@
 		$label .= '<span class="label label-warning mr-5">Normal</span>';
 	}
 
-	if(in_array($username, ['debukuk'])){
+	if(is_contrib_username($username)){
 		$label .= '<span class="label label-primary mr-5">Contrib</span>';
 	}
 ?>
@@ -104,7 +104,7 @@
 						</div>
 						<div class="clearfix"></div>
 						<blockquote class="mt-10 mb-10"><?php
-	if(isset($user_info['comment'][0])){
+	if(isset($user_info['comment']{0})){
 		echo filter_var($user_info['comment'], FILTER_VALIDATE_URL) ?
 			secure_escape('[url]'.$user_info['comment'].'[/url]', true) :
 			secure_escape($user_info['comment']);
