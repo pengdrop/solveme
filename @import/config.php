@@ -59,6 +59,13 @@
 		header('Location: '.$page);
 		die;
 	}
+	function get_http_header($key){
+		$headers = getallheaders();
+		return isset($headers[$key]) ? $headers[$key] : false;
+	}
+	function is_json(){
+		return get_http_header('X-Requested-With') === 'XMLHttpRequest';
+	}
 	function check_method($method){
 		return $_SERVER['REQUEST_METHOD'] === $method;
 	}
