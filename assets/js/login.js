@@ -20,12 +20,10 @@ $(function() {
 			password.focus();
 			return false
 		}
-		$.post({
-			url: '/login',
-			data: {
-				'username': username.val(),
-				'password': password.val()
-			},
+		$.ajax({
+			method: $(this).attr('method'),
+			url: $(this).attr('action'),
+			data: $(this).serialize(),
 			dataType: 'json',
 			success: function(res) {
 				switch (res.status) {
@@ -78,15 +76,10 @@ $(function() {
 			comment.focus();
 			return false
 		}
-		$.post({
-			url: '/join',
-			data: {
-				'username': username.val(),
-				'email': email.val(),
-				'open-email': open_email.is(':checked') ? '1' : '0',
-				'password': password.val(),
-				'comment': comment.val()
-			},
+		$.ajax({
+			method: $(this).attr('method'),
+			url: $(this).attr('action'),
+			data: $(this).serialize(),
 			dataType: 'json',
 			success: function(res) {
 				switch (res.status) {
