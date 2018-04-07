@@ -10,7 +10,7 @@
 						</ul>
 					</nav>
 					<footer class="text-center text-muted">
-						<address class="m-0">© <a class="text-muted" href="//safflower.kr" target="_blank">Safflower</a>. All Rights Reserved.</address>
+						<address class="m-0">© <a class="text-muted" href="//peng.kr" target="_blank">Safflower</a>. All Rights Reserved.</address>
 					</footer>
 				</div>
 			</div>
