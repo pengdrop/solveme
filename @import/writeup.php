@@ -1,4 +1,37 @@
 <?php
+
+	# get writeup count
+	$p = $pdo->prepare("
+		SELECT
+			COUNT(*) AS `cnt`
+		FROM
+			`{$db_prefix}_writeup`
+	");
+	$p->execute();
+	$row = $p->fetch(PDO::FETCH_ASSOC);
+	$rows_count = (int)$row['cnt'];
+	unset($p, $row);
+
+	$limit = 16;
+
+	$first_page = 1;
+	$last_page = (int)ceil($rows_count / $limit);
+	$pagination_count = 9;
+
+	if($argc === 2){
+		$page = 1;
+
+	}else if($argc === 4){
+		$page = (int)$argv[3];
+
+		if($page < $first_page){
+			redirect('/writeup/p/'.urlencode($first_page));
+
+		}else if($last_page < $page){
+			redirect('/writeup/p/'.urlencode($last_page));
+		}
+	}
+
 	# common header
 	$title = __SITE__['title'].' » Writeup';
 	$need_login = true;
@@ -37,7 +70,7 @@
 		ORDER BY
 			`no` DESC
 		LIMIT
-			0, 16
+			".(int)(($page - 1) * $limit).",".(int)$limit."
 	");
 	$p->execute();
 	$writeup_info = $p->fetchAll(PDO::FETCH_ASSOC);
@@ -94,6 +127,51 @@
 ?>
 							</tbody>
 						</table>
+						<nav class="text-center">
+							<ul class="pagination mt-20 mb-10">
+<?php
+	// first & previous page
+	if($first_page < $page){
+?>
+								<li><a href="/writeup/p/<?php echo urlencode($first_page); ?>" aria-label="First"><span aria-hidden="true">&laquo;</span></a></li>
+								<li><a href="/writeup/p/<?php echo urlencode($page - 1); ?>" aria-label="Previous"><span aria-hidden="true">&lsaquo;</span></a></li>
+<?php
+	}
+
+	// middle page
+	if($page < ceil($pagination_count / 2)){
+		$min = 1 - $page;
+		$max = $pagination_count - $page;
+	}else if(($last_page - $page + 1) < ceil($pagination_count / 2)){
+		$min = -$pagination_count + ($last_page - $page + 1);
+		$max = -1 + ($last_page - $page + 1);
+	}else{
+		$min = -floor($pagination_count / 2);
+		$max = floor($pagination_count / 2);
+	}
+
+	for($i = (int)$min; $i <= (int)$max; ++$i){
+		$now_page = (int)($page + $i);
+
+		if($first_page <= $now_page && $now_page <= $last_page){
+?>
+								<li class="<?php if($now_page === $page) echo 'active'; ?>"><a href="/writeup/p/<?php echo urlencode($now_page); ?>" aria-label="<?php echo secure_escape($now_page); ?> page"><?php echo secure_escape($now_page); ?></a></li>
+<?php
+		}
+		unset($now_page);
+	}
+	unset($i, $min, $max);
+
+	// next & last page
+	if($page < $last_page){
+?>
+								<li><a href="/writeup/p/<?php echo urlencode($page + 1); ?>" aria-label="Next"><span aria-hidden="true">&rsaquo;</span></a></li>
+								<li><a href="/writeup/p/<?php echo urlencode($last_page); ?>" aria-label="Last"><span aria-hidden="true">&raquo;</span></a></li>
+<?php
+	}
+?>
+							</ul>
+						</nav>
 						<div class="mt-10 text-right">
 							<a class="btn btn-default" href="/writeup/upload">Upload</a>
 						</div>

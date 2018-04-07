@@ -60,22 +60,50 @@
 		break;
 
 	case 'rank':
-		if($argc !== 2) break;
-		check_method('GET') and (include(__DIR__.'/@import/rank.php')) or
-		error('method');
-		die;
+		isset($argv[2]) or $argv[2] = '';
+		switch($argv[2]){
+		case '':
+			if($argc !== 2) break;
+			check_method('GET') and (include(__DIR__.'/@import/rank.php')) or
+			error('method');
+			die;
+
+		case 'p':
+			if($argc !== 4) break;
+			check_method('GET') and (include(__DIR__.'/@import/rank.php')) or
+			error('method');
+			die;
+		}
+		break;
 
 	case 'status':
-		if($argc !== 2) break;
-		check_method('GET') and (include(__DIR__.'/@import/status.php')) or
-		error('method');
-		die;
+		isset($argv[2]) or $argv[2] = '';
+		switch($argv[2]){
+		case '':
+			if($argc !== 2) break;
+			check_method('GET') and (include(__DIR__.'/@import/status.php')) or
+			error('method');
+			die;
+
+		case 'p':
+			if($argc !== 4) break;
+			check_method('GET') and (include(__DIR__.'/@import/status.php')) or
+			error('method');
+			die;
+		}
+		break;
 
 	case 'writeup':
 		isset($argv[2]) or $argv[2] = '';
 		switch($argv[2]){
 		case '':
 			if($argc !== 2) break;
+			check_method('GET') and (include(__DIR__.'/@import/writeup.php')) or
+			error('method');
+			die;
+
+		case 'p':
+			if($argc !== 4) break;
 			check_method('GET') and (include(__DIR__.'/@import/writeup.php')) or
 			error('method');
 			die;
