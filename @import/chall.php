@@ -2,7 +2,7 @@
 	$chall_link = $argv[2];
 
 	# check exist challenge
-	if(isset($chall_link[0])){
+	if(isset($chall_link{0})){
 		is_chall_link($chall_link) or error(404);
 		$p = $pdo->prepare("
 			SELECT
