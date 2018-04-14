@@ -1,5 +1,5 @@
 <?php
-	if(isset($_POST['email'], $_POST['open-email'], $_POST['password'], $_POST['new-password'], $_POST['comment'])){
+	if(isset($_POST['email'], $_POST['password'], $_POST['new-password'], $_POST['comment'])){
 		# not logged in
 		is_login() or output(['status' => 'l']);
 
@@ -60,7 +60,7 @@
 			");
 			$p->bindParam(':username', $_SESSION['username']);
 			$p->bindParam(':email', $_POST['email']);
-			$p->bindParam(':open_email', $_POST['open-email']);
+			$p->bindValue(':open_email', isset($_POST['open-email']) ? '1' : '0');
 			$p->bindParam(':comment', $_POST['comment']);
 			$p->bindValue(':password', secure_hash($_POST['new-password']));
 			$p->execute();
@@ -79,7 +79,7 @@
 			");
 			$p->bindParam(':username', $_SESSION['username']);
 			$p->bindParam(':email', $_POST['email']);
-			$p->bindParam(':open_email', $_POST['open-email']);
+			$p->bindValue(':open_email', isset($_POST['open-email']) ? '1' : '0');
 			$p->bindParam(':comment', $_POST['comment']);
 			$p->execute();
 		}
