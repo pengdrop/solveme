@@ -1,11 +1,12 @@
 <?php
-	if(isset($_POST['username'], $_POST['email'], $_POST['open-email'], $_POST['password'], $_POST['comment'])){
+	if(isset($_POST['username'], $_POST['email'], $_POST['password'], $_POST['confirm-password'], $_POST['comment'])){
 
 		is_login() and output(['status' => 'a']); # already logged
 
 		is_username($_POST['username']) or output(['status' => 'x']); # valid username
 		is_email($_POST['email']) or output(['status' => 'x']); # valid email
 		is_password($_POST['password']) or output(['status' => 'x']); # valid password
+		($_POST['password'] === $_POST['confirm-password']) or output(['status' => 'x']); # valid password
 		is_comment($_POST['comment']) or output(['status' => 'x']); # valid comment
 
 		$p = $pdo->prepare("
@@ -63,7 +64,7 @@
 		");
 		$p->bindParam(':username', $_POST['username']);
 		$p->bindParam(':email', $_POST['email']);
-		$p->bindParam(':open_email', $_POST['open-email']);
+		$p->bindValue(':open_email', isset($_POST['open-email']) ? '1' : '0');
 		$p->bindValue(':password', secure_hash($_POST['password']));
 		$p->bindParam(':comment', $_POST['comment']);
 		$p->execute();
