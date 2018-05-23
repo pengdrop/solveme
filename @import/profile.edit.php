@@ -35,7 +35,7 @@
 							</div>
 							<div class="form-group mb-0">
 								<label class="sr-only" for="edit-email">Email</label>
-								<input type="text" class="form-control" id="edit-email" placeholder="Email" data-toggle="tooltip" data-placement="bottom" title="The email must be unique and valid, It will use when you forgot password." value="<?php echo $user_info['email']; ?>">
+								<input type="text" class="form-control" id="edit-email" placeholder="Email" data-toggle="tooltip" data-placement="bottom" title="The email must be unique and valid, It will use when you forgot password." value="<?php echo secure_escape($user_info['email']); ?>">
 							</div>
 							<div class="checkbox ml-10">
 								<label><input type="checkbox" id="edit-open-email"<?php if($user_info['open_email'] === '1') echo ' checked'; ?>> Email open to the public in <a href="/profile">profile page</a>.</label>
@@ -59,7 +59,7 @@
 							</div>
 							<div class="form-group">
 								<label class="sr-only" for="edit-comment">Comment</label>
-								<input type="text" class="form-control" id="edit-comment" placeholder="Comment" data-toggle="tooltip" data-placement="bottom" title="The comment must be 30 characters long." value="<?php echo $user_info['comment']; ?>">
+								<input type="text" class="form-control" id="edit-comment" placeholder="Comment" data-toggle="tooltip" data-placement="bottom" title="The comment must be 30 characters long." value="<?php echo secure_escape($user_info['comment']); ?>">
 							</div>
 							<div class="text-right">
 								<button type="submit" class="btn btn-dark mr-5">Edit</button><button class="btn btn-default go-back" data-href="/profile">Cancel</button>

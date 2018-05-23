@@ -1,6 +1,8 @@
 <?php
+	is_login() and redirect('/');
+
 	# common header
-	$title = __SITE__['title'];
+	$title = __SITE__['title'].' » Login';
 	$need_login = false;
 	$js_files = [
 		'/assets/js/login.js'

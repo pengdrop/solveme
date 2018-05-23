@@ -34,7 +34,7 @@
 
 	# common header
 	$title = __SITE__['title'].' » Status';
-	$need_login = true;
+	$need_login = false;
 	$show_category = true;
 	require __DIR__.'/header.php';
 ?>
@@ -143,6 +143,9 @@
 ?>
 							</ul>
 						</nav>
+						<div class="bg-info text-center mt-10 p-10">
+							<img class="mt-m4" src="<?php echo get_new_cache_link('/assets/img/user.png'); ?>" alt="☺"> Currently authenticated <?php echo $rows_count; ?> times.
+						</div>
 					</main>
 <?php
 	# common footer

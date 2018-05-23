@@ -29,11 +29,19 @@ $(function() {
 				switch (res.status) {
 					case 'o':
 						show_alert('success', '<b>Success!</b> Hello, ' + res.username + '! Please wait while you are redirected.');
-						location.reload(0);
+						if(location.pathname == '/login'){
+							location.replace('/');
+						}else{
+							location.reload(0);
+						}
 						break;
 					case 'a':
 						show_alert('info', '<b>Info!</b> You\'re already logged in. Please wait while you are redirected.');
-						location.reload(0);
+						if(location.pathname == '/login'){
+							location.replace('/');
+						}else{
+							location.reload(0);
+						}
 						break;
 					case 'x':
 						show_alert('danger', '<b>Failure!</b> This username or password is wrong.');
@@ -85,11 +93,19 @@ $(function() {
 				switch (res.status) {
 					case 'o':
 						show_alert('success', '<b>Success!</b> Welcome, ' + res.username + '! Please wait while you are redirected.');
-						location.reload(0);
+						if(location.pathname == '/login'){
+							location.replace('/');
+						}else{
+							location.reload(0);
+						}
 						break;
 					case 'a':
 						show_alert('info', '<b>Info!</b> You\'re already logged in. Please wait while you are redirected.');
-						location.reload(0);
+						if(location.pathname == '/login'){
+							location.replace('/');
+						}else{
+							location.reload(0);
+						}
 						break;
 					case 'u':
 						show_alert('warning', '<b>Warning!</b> This username is already exists.');

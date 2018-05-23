@@ -16,7 +16,7 @@ function show_alert(type, contents) {
 	};
 }
 function localize_time(time){
-	let t = new Date(time + " UTC");
+	let t = new Date(time + ' UTC');
 	let year = t.getFullYear();
 	let month = t.getMonth() + 1;
 		month = month < 10 ? '0' + month : month;
@@ -46,6 +46,6 @@ $(function() {
 		}
 	});
 	$('time').each(function(){
-		$(this).html(localize_time($(this).html()))
+		//$(this).html(localize_time($(this).html()))
 	});
 });

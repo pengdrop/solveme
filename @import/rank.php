@@ -36,7 +36,7 @@
 
 	# common header
 	$title = __SITE__['title'].' » Rank';
-	$need_login = true;
+	$need_login = false;
 	$show_category = true;
 	require __DIR__.'/header.php';
 

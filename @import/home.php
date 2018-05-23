@@ -1,7 +1,7 @@
 <?php
 	# common header
 	$title = __SITE__['title'];
-	$need_login = true;
+	$need_login = false;
 	$show_category = true;
 	require __DIR__.'/header.php';
 ?>
@@ -34,7 +34,7 @@
 								<ul class="list-unstyled m-0">
 									<li>
 										Debukuk (<a href="/profile/debukuk">@debukuk</a>)<br>
-										&nbsp;&nbsp;- Found a vulnerability of regular expression in valid check functions. (<a href="https://github.com/Safflower/solve-me/commit/51ba291accb49ae4a602a638d66871a9626e16d6">more info</a>)<br>
+										&nbsp;&nbsp;- Found a vulnerability of regular expression in valid check functions.<br>
 										&nbsp;&nbsp;- Provided the challenge problem.<br>
 									</li>
 								</ul>

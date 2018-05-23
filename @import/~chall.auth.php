@@ -4,7 +4,7 @@
 		is_login() or output(['status' => 'l']);
 
 		# remove flag{ }
-		$_POST['flag'] = preg_replace('/^flag\{(.*)\}$/is', '${1}', $_POST['flag']);
+		$_POST['flag'] = preg_replace('/\Aflag\{(.*)\}\z/is', '${1}', $_POST['flag']);
 
 		# flag check
 		$p = $pdo->prepare("

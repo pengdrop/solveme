@@ -1,11 +1,21 @@
 					<nav class="text-center mb-10 main-menu">
 						<ul class="list-inline m-0">
 							<li>
-								<a href="//github.com/Safflower/Solve-Me">Github</a>
+								<a href="//github.com/Safflower/solve-me">Github</a>
 							</li><li>
 								<a class="admin-contact">Contact</a>
 							</li><li>
+<?php
+	if(is_login()){
+?>
 								<a href="/logout/<?php echo get_logout_link(); ?>">Logout</a>
+<?php
+	}else{
+?>
+								<a href="/login">Login</a>
+<?php
+	}
+?>
 							</li>
 						</ul>
 					</nav>

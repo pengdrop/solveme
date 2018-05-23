@@ -31,7 +31,7 @@
 	define('__CONTRIB__', [
 		'Debukuk'
 	]);
-	define('__HASH_SALT__', '**secret**');
+	define('__HASH_SALT__', 'q+0lvTsG%San0xOsgrl1fMfDuUbZox7iK%qsGGC$90ca6vU+k48pb_2^JqbAjDF@nCjQdxbY4#t~D55z');
 
 	# option settings
 	define('__IS_HTML_PACK__', false);
@@ -50,6 +50,7 @@
 	# set timezone
 	date_default_timezone_set("UTC");
 	$pdo->query("SET time_zone='+00:00'");
+
 
 	######################################################################################################################
 	### about http functions
@@ -85,6 +86,9 @@
 		return $filename.(is_file($filepath) ? '?'.filemtime($filepath) : null);
 	}
 	function output($data){
+		if(!is_json()){
+			die('<script>history.back();</script>');
+		}
 		header('Content-Type: application/json; charset=utf-8');
 		die(json_encode($data));
 	}
@@ -120,6 +124,9 @@
 	}
 	function get_chall_link($title){
 		return strtr(strtolower($title), ' ', '_');
+	}
+	function email_encode($email){
+		return 'mailto:'.strtr($email, ['@' => '&#64;', '.' => '&#46;']);
 	}
 
 

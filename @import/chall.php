@@ -1,8 +1,8 @@
 <?php
-	$chall_link = $argv[2];
-
+	
 	# check exist challenge
-	if(isset($chall_link{0})){
+	if(isset($argv[2]{0}) && !isset($argv[3]{0})){
+		$chall_link = $argv[2];
 		is_chall_link($chall_link) or error(404);
 		$p = $pdo->prepare("
 			SELECT
@@ -19,15 +19,45 @@
 		$p->fetch(PDO::FETCH_ASSOC) or error(404);
 	}
 
+	# get prob count
+	$p = $pdo->prepare("
+		SELECT
+			COUNT(*) AS `cnt`
+		FROM
+			`{$db_prefix}_problem`
+	");
+	$p->execute();
+	$row = $p->fetch(PDO::FETCH_ASSOC);
+	$rows_count = (int)$row['cnt'];
+	unset($p, $row);
+
+	$limit = 16;
+
+	$first_page = 1;
+	$last_page = (int)ceil($rows_count / $limit);
+	$pagination_count = 9;
+
+	if(isset($argv[2]{0}, $argv[3]{0}) && $argv[2] === 'p'){
+		$page = (int)$argv[3];
+
+		if($page < $first_page){
+			redirect('/chall/p/'.urlencode($first_page));
+
+		}else if($last_page < $page){
+			redirect('/chall/p/'.urlencode($last_page));
+		}
+	}else{
+		$page = 1;
+	}
+
 	# common header
 	$title = __SITE__['title'].' » Challenge';
-	$need_login = true;
+	$need_login = false;
 	$js_files = [
 		'/assets/js/chall.js'
 	];
 	$show_category = true;
 	require __DIR__.'/header.php';
-
 
 	# get prob info
 	$p = $pdo->prepare("
@@ -44,8 +74,10 @@
 		FROM
 			`{$db_prefix}_problem` AS `p`
 		ORDER BY
-			`category` DESC,
-			`score` ASC
+			`score` ASC,
+			`register_time` DESC
+		LIMIT
+			".(int)(($page - 1) * $limit).",".(int)$limit."
 	");
 	$p->bindParam(':username', $_SESSION['username']);
 	$p->execute();
@@ -81,24 +113,23 @@
 						</form>
 						<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 <?php
-	$now_cat = '';
 	for($i = 0; isset($prob_info[$i]); ++$i){
-		if($now_cat !== $prob_info[$i]['category']){
-			$now_cat = $prob_info[$i]['category'];
-?>
-			<div class="text-muted mt-10 mb-5"><?php echo secure_escape($now_cat); ?></div>
-<?php
-		}
 		$link = get_chall_link($prob_info[$i]['title']);
 ?>
 							<div class="panel panel-default">
 								<div class="panel-heading" role="tab" id="heading-<?php echo secure_escape($link); ?>">
 									<h4 class="panel-title">
-										<a class="prob-title pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse-<?php echo secure_escape($link); ?>" aria-expanded="<?php echo $link === $chall_link ? 'true' : 'false'; ?>" aria-controls="collapse-<?php echo secure_escape($link); ?>"><?php echo secure_escape($prob_info[$i]['title']); ?></a>
+										<a class="prob-title pull-left mr-5" data-toggle="collapse" data-parent="#accordion" href="#collapse-<?php echo secure_escape($link); ?>" aria-expanded="<?php echo $link === $chall_link ? 'true' : 'false'; ?>" aria-controls="collapse-<?php echo secure_escape($link); ?>"><?php echo secure_escape($prob_info[$i]['title']); ?></a>
 <?php
+	if(strtotime($prob_info[$i]['register_time']) >= time() - 3600 * 24 * 7){
+?>
+										<span class="label label-warning ml-5">New</span>
+<?php
+	}
+
 	if($prob_info[$i]['is_solved']){
 ?>
-										<span class="label label-success ml-10">Solved</span>
+										<span class="label label-success ml-5">Solved</span>
 <?php
 	}
 ?>
@@ -113,6 +144,15 @@
 										</span>
 										<hr class="mt-10 mb-10">
 										<?php echo secure_escape($prob_info[$i]['contents'], true); ?>
+										<hr class="mt-10 mb-10">
+<?php
+	foreach(explode(',', strtolower($prob_info[$i]['category'])) as $cat){
+?>
+											<span class="label label-default mr-10"><?php echo secure_escape($cat); ?></span>
+<?php
+	}
+	unset($cat);
+?>
 									</div>
 								</div>
 							</div>
@@ -141,8 +181,54 @@
 							</div>
 <?php
 	}
+	unset($i);
 ?>
 						</div>
+						<nav class="text-center">
+							<ul class="pagination mt-0 mb-0">
+<?php
+	// first & previous page
+	if($first_page < $page){
+?>
+								<li><a href="/chall/p/<?php echo urlencode($first_page); ?>" aria-label="First"><span aria-hidden="true">&laquo;</span></a></li>
+								<li><a href="/chall/p/<?php echo urlencode($page - 1); ?>" aria-label="Previous"><span aria-hidden="true">&lsaquo;</span></a></li>
+<?php
+	}
+
+	// middle page
+	if($page < ceil($pagination_count / 2)){
+		$min = 1 - $page;
+		$max = $pagination_count - $page;
+	}else if(($last_page - $page + 1) < ceil($pagination_count / 2)){
+		$min = -$pagination_count + ($last_page - $page + 1);
+		$max = -1 + ($last_page - $page + 1);
+	}else{
+		$min = -floor($pagination_count / 2);
+		$max = floor($pagination_count / 2);
+	}
+
+	for($i = (int)$min; $i <= (int)$max; ++$i){
+		$now_page = (int)($page + $i);
+
+		if($first_page <= $now_page && $now_page <= $last_page){
+?>
+								<li class="<?php if($now_page === $page) echo 'active'; ?>"><a href="/chall/p/<?php echo urlencode($now_page); ?>" aria-label="<?php echo secure_escape($now_page); ?> page"><?php echo secure_escape($now_page); ?></a></li>
+<?php
+		}
+		unset($now_page);
+	}
+	unset($i, $min, $max);
+
+	// next & last page
+	if($page < $last_page){
+?>
+								<li><a href="/chall/p/<?php echo urlencode($page + 1); ?>" aria-label="Next"><span aria-hidden="true">&rsaquo;</span></a></li>
+								<li><a href="/chall/p/<?php echo urlencode($last_page); ?>" aria-label="Last"><span aria-hidden="true">&raquo;</span></a></li>
+<?php
+	}
+?>
+							</ul>
+						</nav>
 						<div class="progress mt-15 mb-0">
 							<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<?php echo $user_info['score']; ?>" aria-valuemin="0" aria-valuemax="<?php echo $user_info['total_score']; ?>" style="width:<?php echo $user_info['score_percent']; ?>%">
 								<span><?php echo $user_info['score_percent']; ?>%</span>

@@ -73,7 +73,7 @@
 	# email protect
 	if($is_mine || is_admin() || $user_info['open_email'] === '1'){
 ?>
-									<a href="mailto:<?php echo $user_info['email']; ?>"><?php echo $user_info['email']; ?></a>
+									<a href="<?php echo email_encode($user_info['email']); ?>"><?php echo secure_escape($user_info['email']); ?></a>
 <?php
 	}else{
 ?>

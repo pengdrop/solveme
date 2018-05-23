@@ -20,6 +20,7 @@
 
 	case 'login':
 		if($argc !== 2) break;
+		check_method('GET') and (include(__DIR__.'/@import/login.php')) or
 		check_method('POST') and (include(__DIR__.'/@import/~login.php')) or
 		error('method');
 		die;
@@ -48,6 +49,12 @@
 		case 'auth':
 			if($argc !== 3) break;
 			check_method('POST') and (include(__DIR__.'/@import/~chall.auth.php')) or
+			error('method');
+			die;
+
+		case 'p':
+			if($argc !== 4) break;
+			check_method('GET') and (include(__DIR__.'/@import/chall.php')) or
 			error('method');
 			die;
 
