@@ -31,10 +31,10 @@
 	define('__CONTRIB__', [
 		'Debukuk'
 	]);
-	define('__HASH_SALT__', 'q+0lvTsG%San0xOsgrl1fMfDuUbZox7iK%qsGGC$90ca6vU+k48pb_2^JqbAjDF@nCjQdxbY4#t~D55z');
+	define('__HASH_SALT__', '**secret**');
 
 	# option settings
-	define('__IS_HTML_PACK__', false);
+	define('__IS_HTML_PACK__', true);
 
 	######################################################################################################################
 	### basic commands
