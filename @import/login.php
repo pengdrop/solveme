@@ -37,7 +37,7 @@
 								<label class="sr-only" for="join-email">Email</label>
 								<input type="text" class="form-control" id="join-email" name="email" placeholder="Email" data-toggle="tooltip" data-placement="bottom" title="The email must be unique and valid, It will use when you forgot password.">
 								<div class="checkbox ml-10">
-									<label><input type="checkbox" id="join-open-email" name="open-email> Email open to the public in <a href="/profile">profile page</a>.</label>
+									<label><input type="checkbox" id="join-open-email" name="open-email"> Email open to the public in <a href="/profile">profile page</a>.</label>
 								</div>
 							</div>
 							<div class="form-group">
