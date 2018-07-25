@@ -6,38 +6,6 @@ ErrorDocument 404 /index.php
 
 AddDefaultCharset utf-8
 
-<IfModule mod_php7.c>
-	php_flag magic_quotes_gpc off
-	php_flag magic_quotes_runtime off
-	php_flag allow_url_fopen off
-	php_flag register_globals off
-	php_flag always_populate_raw_post_data on
-	php_flag enable_dl off
-	php_flag log_errors on
-	php_flag expose_php off
-	php_flag display_errors off
-	php_flag display_startup_errors off
-	php_value session.name sid
-	php_value session.gc_maxlifetime 43200
-	php_value session.entropy_length 32
-	php_value session.use_only_cookies 1
-	php_value session.hash_function sha256
-	php_value session.cookie_httponly 1
-</IfModule>
-
-<IfModule mod_headers.c>
-	Header unset Server
-	Header unset X-Powered-By
-</IfModule>
-
-<IfModule mod_deflate>
-	AddOutputFilterByType DEFLATE text/plain text/html text/xml
-	AddOutputFilterByType DEFLATE application/xhtml+xml application/xml application/rss+xml
-	AddOutputFilterByType DEFLATE text/css application/javascript application/x-javascript
-	AddOutputFilterByType DEFLATE audio/midi
-	DeflateCompressionLevel 9
-</ifModule>
-
 <IfModule mod_rewrite.c>
 	RewriteEngine on
 	RewriteBase /
