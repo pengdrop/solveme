@@ -1,7 +1,4 @@
 <?php
-	# config
-	require __DIR__.'/@import/config.php';
-
 	isset($_GET['host']) or die('Input the valid host of database.');
 	isset($_GET['username']) or die('Input the valid username of database.');
 	isset($_GET['password']) or die('Input the valid password of database.');
