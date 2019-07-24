@@ -2,8 +2,10 @@
 	# config
 	require __DIR__.'/@import/config.php';
 
-	isset($_GET['username']) and $_GET['username'] === __DB__['username'] or die('Input the valid username of database.');
-	isset($_GET['password']) and $_GET['password'] === __DB__['password'] or die('Input the valid password of database.');
+	isset($_GET['host']) or die('Input the valid host of database.');
+	isset($_GET['username']) or die('Input the valid username of database.');
+	isset($_GET['password']) or die('Input the valid password of database.');
+	isset($_GET['name']) or die('Input the valid name of database.');
 	isset($_GET['prefix']) or die('Input the valid prefix of database.');
 
 	$file_path = __DIR__.'/@import/init.sql';
@@ -16,6 +18,12 @@
 	}
 	$sql_querys = explode(';', $file_body);
 	is_array($sql_querys) or die('init.sql file was damaged.');
+
+	try{
+		$pdo = new PDO('mysql:host='.$_GET['host'].';dbname='.$_GET['name'], $_GET['username'], $_GET['password']);
+	}catch(exception $e){
+		die('sql server was down.');
+	}
 
 	foreach($sql_querys as $sql_query){
 		$sql_query = trim($sql_query);
