@@ -20,6 +20,7 @@
 		$pdo = new PDO('mysql:host='.$_GET['host'].';dbname='.$_GET['name'], $_GET['username'], $_GET['password']);
 	}catch(exception $e){
 		var_dump($e);
+		die;
 	}
 
 	foreach($sql_querys as $sql_query){
