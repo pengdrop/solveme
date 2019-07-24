@@ -19,7 +19,7 @@
 	try{
 		$pdo = new PDO('mysql:host='.$_GET['host'].';dbname='.$_GET['name'], $_GET['username'], $_GET['password']);
 	}catch(exception $e){
-		die('sql server was down.');
+		var_dump($e);
 	}
 
 	foreach($sql_querys as $sql_query){
