@@ -15,11 +15,11 @@ This source code tested on `PHP 7.2` / `MariaDB 10.1.40`.
 Demo Website: <http://211.239.124.233:20813/>
 
 
-## How to setup?
+## How to set-up?
 
 ```
 # in main server
-docker run -it -p 20813:80 --name solveme ubuntu /bin/bash
+docker run -it -p {website_port}:80 --name solveme ubuntu /bin/bash
 ```
 
 ```
@@ -53,7 +53,7 @@ mysql_secure_installation
 mysql -u root -p
 >> create database `solveme`;
 >> use solveme;
->> grant all privileges on *.* to root@localhost identified by 'your_password';
+>> grant all privileges on *.* to root@localhost identified by '{mysql_password}';
 >> flush privileges;
 >> exit;
 
