@@ -4,10 +4,12 @@
 
 # Solve Me
 
-![main](https://i.imgur.com/u5LwdYl.png)
+![main](https://i.imgur.com/JaxGpfV.png)
 
 It's jeopardy style wargame website called Solve Me.
 
-This source code tested on PHP 7.0 / MySQL 5.5 (or MariaDB 10.1.9).
+This source code tested on `PHP 7.2` / `MariaDB 10.1.40`.
 
-~<http://solveme.peng.kr/>~
+~Official Website: <http://solveme.peng.kr/>~
+
+Demo Website: <http://211.239.124.233:20813/>
