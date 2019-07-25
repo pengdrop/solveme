@@ -41,7 +41,7 @@ vim /etc/apache2/sites-available/000-default.conf
 service apache2 start
 
 # php
-apt install -y php7.2 php-mbstring pdo-mysql
+apt install -y php7.2 php-mbstring php-pdo-mysql
 php -v
 vim /etc/php/7.2/apache2/php.ini
 # plz enable `mbstring` and `pdo-mysql`
@@ -51,9 +51,8 @@ apt install -y mariadb-server
 service mysql start
 mysql_secure_installation
 mysql -u root -p
->> create database `solveme`;
->> use solveme;
 >> grant all privileges on *.* to root@localhost identified by '{mysql_password}';
+>> create database `solveme`;
 >> flush privileges;
 >> exit;
 
