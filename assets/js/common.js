@@ -32,7 +32,7 @@ function localize_time(time){
 }
 $(function() {
 	$('[data-toggle="tooltip"]').tooltip();
-	$('.admin-contact').attr('href', 'mailto:plzdonotsay@gmail.com'));
+	$('.admin-contact').attr('href', 'mailto:plzdonotsay@gmail.com');
 	$('.secret-contact').click(function() {
 		show_alert('info', '<b>Secret!</b> This user\'s email is secret for privacy.')
 	});
