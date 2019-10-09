@@ -2,15 +2,15 @@
 [![GitHub stars](https://img.shields.io/github/stars/safflower/solve-me.svg)](https://github.com/safflower/solve-me/stargazers)
 [![GitHub license](https://img.shields.io/github/license/safflower/solve-me.svg)](https://github.com/safflower/solve-me/blob/master/LICENSE)
 
-# Solve Me
+# SolveMe
 
 ![main](https://i.imgur.com/JaxGpfV.png)
 
-It's jeopardy style wargame website called Solve Me.
+It's jeopardy style wargame website called SolveMe.
 
-This source code tested on `PHP 7.2` / `MariaDB 10.1.40`.
+This source code tested on `PHP 7.2` and `MariaDB 10.1.40`.
 
-~Official Website: <http://solveme.peng.kr/>~
+~Official Website: <http://solveme.kr/>~
 
 Demo Website: <http://211.239.124.233:20813/>
 
